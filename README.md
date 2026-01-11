@@ -14,6 +14,14 @@ A feature-rich Neovim configuration built on **LazyVim** with full debugging sup
 
 ## Installation
 
+### Quick Install
+
+```bash
+bash <(curl -s https://raw.githubusercontent.com/vinceruizz/nvim-config/main/install.sh)
+```
+
+> **Warning**: This will overwrite your existing Neovim configuration and clear cache/data directories!
+
 ### Prerequisites
 
 Install Neovim (0.9.0+ required):
@@ -67,39 +75,68 @@ sudo pacman -S git nodejs ripgrep fd
 scoop install git nodejs ripgrep fd
 ```
 
-### Install Config
-
-**macOS / Linux / WSL**
-```bash
-git clone https://github.com/vinceruizz/nvim-config.git
-cd Neovim-Config
-./install.sh
-```
-
-**Windows (Git Bash)**
-```bash
-git clone https://github.com/vinceruizz/nvim-config.git
-cd Neovim-Config
-./install.sh
-```
-
-**Manual Installation**
-```bash
-# Backup existing config
-mv ~/.config/nvim ~/.config/nvim.backup
-
-# macOS / Linux
-git clone https://github.com/vinceruizz/nvim-config.git ~/.config/nvim
-
-# Windows (PowerShell)
-git clone https://github.com/vinceruizz/nvim-config.git $env:LOCALAPPDATA\nvim
-```
-
 ### Post-Installation
 
 1. Open Neovim: `nvim`
 2. Wait for plugins to install automatically
 3. Run `:Mason` to install LSP servers and debug adapters
+
+## Plugins
+
+### Core
+
+| Plugin | Description |
+|--------|-------------|
+| [folke/lazy.nvim](https://github.com/folke/lazy.nvim) | Plugin manager |
+| [LazyVim/LazyVim](https://github.com/LazyVim/LazyVim) | Base configuration with sensible defaults |
+
+### Colorschemes
+
+| Plugin | Description |
+|--------|-------------|
+| [folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim) | Clean dark theme (default) |
+| [ellisonleao/gruvbox.nvim](https://github.com/ellisonleao/gruvbox.nvim) | Retro groove colorscheme |
+
+### Completion & Snippets
+
+| Plugin | Description |
+|--------|-------------|
+| [saghen/blink.cmp](https://github.com/saghen/blink.cmp) | Fast completion engine |
+| [rafamadriz/friendly-snippets](https://github.com/rafamadriz/friendly-snippets) | Snippet collection for many languages |
+| [L3MON4D3/LuaSnip](https://github.com/L3MON4D3/LuaSnip) | Snippet engine |
+
+### LSP & Formatting
+
+| Plugin | Description |
+|--------|-------------|
+| [neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP configuration |
+| [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim) | LSP/DAP/linter installer |
+| [stevearc/conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatting |
+
+### Debugging (DAP)
+
+| Plugin | Description |
+|--------|-------------|
+| [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap) | Debug Adapter Protocol client |
+| [rcarriga/nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) | UI for nvim-dap |
+| [theHamsta/nvim-dap-virtual-text](https://github.com/theHamsta/nvim-dap-virtual-text) | Virtual text showing variable values |
+| [jay-babu/mason-nvim-dap.nvim](https://github.com/jay-babu/mason-nvim-dap.nvim) | Mason integration for DAP |
+| [mfussenegger/nvim-dap-python](https://github.com/mfussenegger/nvim-dap-python) | Python debugging |
+| [leoluz/nvim-dap-go](https://github.com/leoluz/nvim-dap-go) | Go debugging |
+| [nvim-neotest/nvim-nio](https://github.com/nvim-neotest/nvim-nio) | Async IO library for nvim-dap-ui |
+
+### UI & Navigation
+
+| Plugin | Description |
+|--------|-------------|
+| [folke/snacks.nvim](https://github.com/folke/snacks.nvim) | Terminal, file explorer, picker |
+| [nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Statusline |
+
+### Syntax
+
+| Plugin | Description |
+|--------|-------------|
+| [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting and code understanding |
 
 ## Keybindings
 
@@ -112,6 +149,7 @@ git clone https://github.com/vinceruizz/nvim-config.git $env:LOCALAPPDATA\nvim
 | `<leader>ff` | Find files |
 | `<leader>fg` | Live grep |
 | `<leader>bb` | Switch buffer |
+| `<leader>gg` | Lazygit |
 
 ### Terminal
 
