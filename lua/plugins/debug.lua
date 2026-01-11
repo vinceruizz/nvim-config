@@ -34,7 +34,7 @@ return {
 
       -- Mason DAP setup (auto-install adapters)
       require("mason-nvim-dap").setup({
-        ensure_installed = { "python", "codelldb", "delve", "js" },
+        ensure_installed = { "python", "codelldb", "delve", "js", "coreclr", "javadbg", "javatest" },
         automatic_installation = true,
       })
 
@@ -160,6 +160,61 @@ return {
           },
         }
       end
+
+      -- C# (.NET Core) using netcoredbg
+      dap.adapters.coreclr = {
+        type = "executable",
+        command = "netcoredbg",
+        args = { "--interpreter=vscode" },
+      }
+
+      dap.configurations.cs = {
+        {
+          type = "coreclr",
+          name = "Launch",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+        },
+        {
+          type = "coreclr",
+          name = "Attach",
+          request = "attach",
+          processId = require("dap.utils").pick_process,
+        },
+      }
+
+      -- Java (using java-debug-adapter)
+      -- Note: Java debugging is typically handled by nvim-jdtls
+      -- This is a basic configuration for standalone use
+      dap.adapters.java = function(callback)
+        callback({
+          type = "server",
+          host = "127.0.0.1",
+          port = 5005,
+        })
+      end
+
+      dap.configurations.java = {
+        {
+          type = "java",
+          name = "Debug (Attach)",
+          request = "attach",
+          hostName = "127.0.0.1",
+          port = 5005,
+        },
+        {
+          type = "java",
+          name = "Debug (Launch)",
+          request = "launch",
+          mainClass = function()
+            return vim.fn.input("Main class: ")
+          end,
+          cwd = "${workspaceFolder}",
+        },
+      }
     end,
   },
 }
