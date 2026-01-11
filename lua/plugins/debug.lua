@@ -36,7 +36,6 @@ return {
       require("mason-nvim-dap").setup({
         ensure_installed = { "python", "codelldb", "delve", "js" },
         automatic_installation = true,
-        handlers = {},
       })
 
       -- DAP UI setup
