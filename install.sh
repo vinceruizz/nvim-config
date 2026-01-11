@@ -13,8 +13,20 @@ info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 
-# Get the directory where this script is located
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Repository URL
+REPO_URL="https://github.com/vinceruizz/nvim-config.git"
+TMP_DIR="/tmp/nvim-config-install"
+
+# Cleanup function
+cleanup() {
+    if [ -d "$TMP_DIR" ]; then
+        info "Cleaning up temporary files..."
+        rm -rf "$TMP_DIR"
+    fi
+}
+
+# Set trap to cleanup on exit
+trap cleanup EXIT
 
 # Detect OS and set config directory
 detect_os() {
@@ -153,41 +165,67 @@ check_dependencies() {
     fi
 }
 
-# Backup existing config
-backup_config() {
+# Clone repository to temp directory
+clone_repo() {
+    info "Cloning repository to temporary directory..."
+
+    # Remove existing temp directory if it exists
+    if [ -d "$TMP_DIR" ]; then
+        rm -rf "$TMP_DIR"
+    fi
+
+    git clone --depth 1 "$REPO_URL" "$TMP_DIR" || error "Failed to clone repository"
+    info "Repository cloned successfully!"
+}
+
+# Warn and confirm overwrite
+confirm_overwrite() {
+    echo ""
+    echo -e "${RED}=========================================${NC}"
+    echo -e "${RED}  WARNING: This will OVERWRITE your${NC}"
+    echo -e "${RED}  existing Neovim configuration!${NC}"
+    echo -e "${RED}=========================================${NC}"
+    echo ""
+
     if [ -e "$CONFIG_DIR" ]; then
-        BACKUP="$CONFIG_DIR.backup.$(date +%Y%m%d_%H%M%S)"
-        warn "Existing config found. Backing up to: $BACKUP"
-        mv "$CONFIG_DIR" "$BACKUP"
+        warn "Existing config found at: $CONFIG_DIR"
+        echo "This directory will be DELETED and replaced."
+        echo ""
+    fi
+
+    read -p "Are you sure you want to continue? [y/N] " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        info "Installation cancelled."
+        exit 0
     fi
 }
 
 # Install the config
 install_config() {
-    echo ""
-    echo "Installation method:"
-    echo "  1) Symlink (recommended - stays in sync with repo)"
-    echo "  2) Copy (standalone copy)"
-    read -p "Choose [1/2]: " -n 1 -r
-    echo
+    # Remove existing config directory if it exists
+    if [ -e "$CONFIG_DIR" ]; then
+        info "Removing existing config..."
+        rm -rf "$CONFIG_DIR"
+    fi
 
-    # Ensure parent directory exists
+    # Also clean up Neovim cache and data directories for a fresh start
+    info "Cleaning Neovim cache and data directories..."
+    rm -rf "$HOME/.local/share/nvim"
+    rm -rf "$HOME/.local/state/nvim"
+    rm -rf "$HOME/.cache/nvim"
+
+    # Create parent directory if needed
     mkdir -p "$(dirname "$CONFIG_DIR")"
 
-    case $REPLY in
-        2)
-            info "Copying config to $CONFIG_DIR"
-            cp -r "$SCRIPT_DIR" "$CONFIG_DIR"
-            # Remove git directory from copy
-            rm -rf "$CONFIG_DIR/.git"
-            info "Config copied successfully!"
-            ;;
-        *)
-            info "Creating symlink to $CONFIG_DIR"
-            ln -s "$SCRIPT_DIR" "$CONFIG_DIR"
-            info "Symlink created successfully!"
-            ;;
-    esac
+    # Copy config files
+    info "Installing config to $CONFIG_DIR..."
+    cp -r "$TMP_DIR" "$CONFIG_DIR"
+
+    # Remove git directory from the installed config
+    rm -rf "$CONFIG_DIR/.git"
+
+    info "Config installed successfully!"
 }
 
 # Post-install info
@@ -222,7 +260,8 @@ main() {
     detect_os
     check_neovim
     check_dependencies
-    backup_config
+    confirm_overwrite
+    clone_repo
     install_config
     post_install
 }
