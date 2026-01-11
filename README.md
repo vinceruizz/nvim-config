@@ -71,14 +71,14 @@ scoop install git nodejs ripgrep fd
 
 **macOS / Linux / WSL**
 ```bash
-git clone https://github.com/vinceruizz/Neovim-Config.git
+git clone https://github.com/vinceruizz/nvim-config.git
 cd Neovim-Config
 ./install.sh
 ```
 
 **Windows (Git Bash)**
 ```bash
-git clone https://github.com/vinceruizz/Neovim-Config.git
+git clone https://github.com/vinceruizz/nvim-config.git
 cd Neovim-Config
 ./install.sh
 ```
@@ -89,10 +89,10 @@ cd Neovim-Config
 mv ~/.config/nvim ~/.config/nvim.backup
 
 # macOS / Linux
-git clone https://github.com/vinceruizz/Neovim-Config.git ~/.config/nvim
+git clone https://github.com/vinceruizz/nvim-config.git ~/.config/nvim
 
 # Windows (PowerShell)
-git clone https://github.com/vinceruizz/Neovim-Config.git $env:LOCALAPPDATA\nvim
+git clone https://github.com/vinceruizz/nvim-config.git $env:LOCALAPPDATA\nvim
 ```
 
 ### Post-Installation
