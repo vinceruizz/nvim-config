@@ -16,8 +16,13 @@ A feature-rich Neovim configuration built on **LazyVim** with full debugging sup
 
 ### Quick Install
 
-```bash
+```Linux/MacOS (Bash)
 bash <(curl -s https://raw.githubusercontent.com/vinceruizz/nvim-config/main/install.sh)
+```
+
+```Windows (PowerShell)
+curl.exe -s -L -o install.sh https://raw.githubusercontent.com/vinceruizz/nvim-config/main/install.sh
+& "C:\Program Files\Git\bin\bash.exe" install.sh
 ```
 
 > **Warning**: This will overwrite your existing Neovim configuration and clear cache/data directories!
