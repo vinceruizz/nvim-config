@@ -12,7 +12,9 @@
       "Bash(gh auth status:*)",
       "Bash(bash)",
       "Bash(git clone:*)",
-      "Bash(make:*)"
+      "Bash(make:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)"
     ]
   }
 }

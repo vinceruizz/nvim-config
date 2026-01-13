@@ -5,8 +5,6 @@ return {
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
       "theHamsta/nvim-dap-virtual-text",
-      "mason-org/mason.nvim",
-      "jay-babu/mason-nvim-dap.nvim",
       "mfussenegger/nvim-dap-python",
       "leoluz/nvim-dap-go",
     },
@@ -31,12 +29,6 @@ return {
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
-
-      -- Mason DAP setup (auto-install adapters)
-      require("mason-nvim-dap").setup({
-        ensure_installed = { "python", "codelldb", "delve" },
-        automatic_installation = true,
-      })
 
       -- DAP UI setup
       dapui.setup({
@@ -91,13 +83,13 @@ return {
       vim.api.nvim_set_hl(0, "DapStopped", { fg = "#b4fa72" })
       vim.api.nvim_set_hl(0, "DapStoppedLine", { bg = "#2e3d2e" })
 
-      -- Python
+      -- Python (install debugpy via Mason: :MasonInstall debugpy)
       require("dap-python").setup("python")
 
-      -- Go
+      -- Go (install delve via Mason: :MasonInstall delve)
       require("dap-go").setup()
 
-      -- JavaScript/TypeScript (using vscode-js-debug via mason)
+      -- JavaScript/TypeScript (install js-debug-adapter via Mason)
       for _, adapter in ipairs({ "pwa-node", "pwa-chrome" }) do
         dap.adapters[adapter] = {
           type = "server",
@@ -136,7 +128,7 @@ return {
         }
       end
 
-      -- C/C++/Rust (codelldb)
+      -- C/C++/Rust (install codelldb via Mason: :MasonInstall codelldb)
       dap.adapters.codelldb = {
         type = "server",
         port = "${port}",
@@ -161,7 +153,7 @@ return {
         }
       end
 
-      -- C# (.NET Core) using netcoredbg
+      -- C# (.NET Core) - install netcoredbg via Mason: :MasonInstall netcoredbg
       dap.adapters.coreclr = {
         type = "executable",
         command = "netcoredbg",
@@ -178,17 +170,9 @@ return {
           end,
           cwd = "${workspaceFolder}",
         },
-        {
-          type = "coreclr",
-          name = "Attach",
-          request = "attach",
-          processId = require("dap.utils").pick_process,
-        },
       }
 
-      -- Java (using java-debug-adapter)
-      -- Note: Java debugging is typically handled by nvim-jdtls
-      -- This is a basic configuration for standalone use
+      -- Java - use with jdtls for best experience
       dap.adapters.java = function(callback)
         callback({
           type = "server",
@@ -204,15 +188,6 @@ return {
           request = "attach",
           hostName = "127.0.0.1",
           port = 5005,
-        },
-        {
-          type = "java",
-          name = "Debug (Launch)",
-          request = "launch",
-          mainClass = function()
-            return vim.fn.input("Main class: ")
-          end,
-          cwd = "${workspaceFolder}",
         },
       }
     end,
