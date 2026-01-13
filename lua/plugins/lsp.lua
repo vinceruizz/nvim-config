@@ -154,6 +154,12 @@ return {
         -- Linters
         "eslint_d",
         "pylint",
+        -- Debug adapters
+        "debugpy",
+        "codelldb",
+        "delve",
+        "js-debug-adapter",
+        "netcoredbg",
       },
     },
   },
