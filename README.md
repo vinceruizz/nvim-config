@@ -14,21 +14,6 @@ A feature-rich Neovim configuration built on **LazyVim** with full debugging sup
 
 ## Installation
 
-### Quick Install (Linux/MacOS)
-
-```bash
-bash <(curl -s https://raw.githubusercontent.com/vinceruizz/nvim-config/main/install.sh)
-```
-
-### Quick Install (Windows)
-
-```powershell
-curl.exe -s -L -o install.sh https://raw.githubusercontent.com/vinceruizz/nvim-config/main/install.sh
-& "C:\Program Files\Git\bin\bash.exe" install.sh
-```
-
-> **Warning**: This will overwrite your existing Neovim configuration and clear cache/data directories!
-
 ### Prerequisites
 
 Install Neovim (0.9.0+ required):
@@ -81,6 +66,21 @@ sudo pacman -S git nodejs ripgrep fd
 ```powershell
 scoop install git nodejs ripgrep fd
 ```
+
+### Quick Install (Linux/MacOS)
+
+```bash
+bash <(curl -s https://raw.githubusercontent.com/vinceruizz/nvim-config/main/install.sh)
+```
+
+### Quick Install (Windows)
+
+```powershell
+curl.exe -s -L -o install.sh https://raw.githubusercontent.com/vinceruizz/nvim-config/main/install.sh
+& "C:\Program Files\Git\bin\bash.exe" install.sh
+```
+
+> **Warning**: This will overwrite your existing Neovim configuration and clear cache/data directories!
 
 ### Post-Installation
 
