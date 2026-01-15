@@ -77,3 +77,46 @@ vim.diagnostic.config({
     prefix = "",
   },
 })
+
+-- Filter duplicate diagnostics from multiple LSPs
+local function filter_diagnostics(diagnostics)
+  local dominated = {}
+
+  for i, d1 in ipairs(diagnostics) do
+    if not dominated[i] then
+      for j, d2 in ipairs(diagnostics) do
+        if i ~= j and not dominated[j] and d1.lnum == d2.lnum then
+          -- Normalize messages for comparison
+          local m1 = d1.message:lower():gsub("[%p%s]", "")
+          local m2 = d2.message:lower():gsub("[%p%s]", "")
+          -- If messages are similar, keep the one with higher severity (lower number)
+          if m1:find(m2, 1, true) or m2:find(m1, 1, true) or m1:sub(1, 30) == m2:sub(1, 30) then
+            if d1.severity <= d2.severity then
+              dominated[j] = true
+            else
+              dominated[i] = true
+              break
+            end
+          end
+        end
+      end
+    end
+  end
+
+  local filtered = {}
+  for i, d in ipairs(diagnostics) do
+    if not dominated[i] then
+      table.insert(filtered, d)
+    end
+  end
+  return filtered
+end
+
+-- Override the diagnostic handler to filter duplicates
+local orig_handler = vim.lsp.handlers["textDocument/publishDiagnostics"]
+vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+  if result and result.diagnostics then
+    result.diagnostics = filter_diagnostics(result.diagnostics)
+  end
+  orig_handler(err, result, ctx, config)
+end
