@@ -54,6 +54,9 @@ MAP(
 MAP("n", "<leader>cd", function() _G.show_filtered_diagnostics() end, { desc = "Line Diagnostics" })
 MAP("n", "gl", function() _G.show_filtered_diagnostics() end, { desc = "Line Diagnostics" })
 
+-- Toggle theme between OneDark (hacker) and TokyoNight (LazyVim)
+MAP("n", "<leader>ut", function() _G.toggle_theme() end, { desc = "Toggle Theme (Hacker/LazyVim)" })
+
 -- Terminal keymaps
 MAP("t", "<C-h>", "<Cmd>wincmd h<CR>", { desc = "Go to Left Window" })
 MAP("t", "<C-j>", "<Cmd>wincmd j<CR>", { desc = "Go to Lower Window" })

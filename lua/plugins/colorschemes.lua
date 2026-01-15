@@ -1,5 +1,5 @@
 return {
-  -- OneDark with pure black background for hacker vibe
+  -- OneDark with pure black background (hacker vibe)
   {
     "navarasu/onedark.nvim",
     priority = 1000,
@@ -16,7 +16,6 @@ return {
         variables = "none",
       },
       colors = {
-        -- Override background to pure black
         bg0 = "#000000",
         bg1 = "#0a0a0a",
         bg2 = "#111111",
@@ -24,7 +23,6 @@ return {
         bg_d = "#000000",
       },
       highlights = {
-        -- UI tweaks for black background
         Normal = { bg = "#000000" },
         NormalFloat = { bg = "#0a0a0a" },
         SignColumn = { bg = "#000000" },
@@ -42,21 +40,50 @@ return {
     },
     config = function(_, opts)
       require("onedark").setup(opts)
-      require("onedark").load()
     end,
   },
-  -- Keep other themes as alternatives
+  -- TokyoNight (original LazyVim style)
   {
     "folke/tokyonight.nvim",
+    priority = 1000,
+    lazy = false,
     opts = {
       style = "night",
       transparent = false,
+      styles = {
+        comments = { italic = false },
+        keywords = { italic = false },
+      },
+      on_highlights = function(hl, c)
+        hl.SnacksPickerPathHidden = { fg = c.comment }
+        hl.SnacksPickerDir = { fg = c.comment }
+      end,
     },
   },
+  -- Gruvbox alternative
   {
     "ellisonleao/gruvbox.nvim",
     opts = {
       contrast = "hard",
     },
+  },
+
+  -- Theme toggle functionality
+  {
+    "folke/which-key.nvim",
+    optional = true,
+    opts = function(_, opts)
+      -- Theme toggle function
+      _G.toggle_theme = function()
+        local current = vim.g.colors_name
+        if current == "onedark" then
+          vim.cmd.colorscheme("tokyonight")
+          vim.notify("Switched to TokyoNight (LazyVim style)", vim.log.levels.INFO)
+        else
+          require("onedark").load()
+          vim.notify("Switched to OneDark (Hacker style)", vim.log.levels.INFO)
+        end
+      end
+    end,
   },
 }
