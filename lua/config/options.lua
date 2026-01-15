@@ -50,8 +50,7 @@ opt.wrap = true
 -- Disable ColorColumn
 vim.opt.colorcolumn = ""
 
--- Set colorscheme (tokyonight with black background)
-vim.cmd.colorscheme("tokyonight")
+-- Colorscheme is set by onedark plugin in colorschemes.lua
 
 -- Diagnostic configuration - less intrusive inline messages
 vim.diagnostic.config({

@@ -1,60 +1,62 @@
 return {
-  -- Tokyonight with pure black background for hacker vibe
+  -- OneDark with pure black background for hacker vibe
   {
-    "folke/tokyonight.nvim",
+    "navarasu/onedark.nvim",
     priority = 1000,
     lazy = false,
     opts = {
-      style = "night",
+      style = "dark",
       transparent = false,
-      terminal_colors = true,
-      styles = {
-        comments = { italic = false },
-        keywords = { italic = false },
+      term_colors = true,
+      code_style = {
+        comments = "none",
+        keywords = "none",
+        functions = "none",
+        strings = "none",
+        variables = "none",
       },
-      on_colors = function(colors)
+      colors = {
         -- Override background to pure black
-        colors.bg = "#000000"
-        colors.bg_dark = "#000000"
-        colors.bg_float = "#0a0a0a"
-        colors.bg_popup = "#0a0a0a"
-        colors.bg_sidebar = "#000000"
-        colors.bg_statusline = "#0a0a0a"
-        colors.bg_highlight = "#111111"
-      end,
-      on_highlights = function(hl, c)
+        bg0 = "#000000",
+        bg1 = "#0a0a0a",
+        bg2 = "#111111",
+        bg3 = "#1a1a1a",
+        bg_d = "#000000",
+      },
+      highlights = {
         -- UI tweaks for black background
-        hl.CursorLine = { bg = "#0a0a0a" }
-        hl.LineNr = { fg = c.dark3 }
-        hl.CursorLineNr = { fg = c.orange }
-        hl.VertSplit = { fg = "#1a1a1a" }
-        hl.WinSeparator = { fg = "#1a1a1a" }
-        hl.SignColumn = { bg = "#000000" }
-        hl.NormalFloat = { bg = "#0a0a0a" }
-        hl.FloatBorder = { fg = c.blue, bg = "#0a0a0a" }
-        hl.Pmenu = { bg = "#0a0a0a" }
-        hl.PmenuSel = { bg = "#1a1a1a" }
-
-        -- Snacks picker
-        hl.SnacksPickerPathHidden = { fg = c.comment }
-        hl.SnacksPickerDir = { fg = c.comment }
-        hl.SnacksPickerGitStatusIgnored = { fg = c.dark3 }
-        hl.SnacksPickerGitStatusUntracked = { fg = c.dark3 }
-      end,
+        Normal = { bg = "#000000" },
+        NormalFloat = { bg = "#0a0a0a" },
+        SignColumn = { bg = "#000000" },
+        CursorLine = { bg = "#0a0a0a" },
+        CursorLineNr = { fg = "#e5c07b" },
+        LineNr = { fg = "#4b5263" },
+        VertSplit = { fg = "#1a1a1a" },
+        WinSeparator = { fg = "#1a1a1a" },
+        Pmenu = { bg = "#0a0a0a" },
+        PmenuSel = { bg = "#1a1a1a" },
+        FloatBorder = { bg = "#0a0a0a" },
+        StatusLine = { bg = "#0a0a0a" },
+        StatusLineNC = { bg = "#000000" },
+      },
     },
+    config = function(_, opts)
+      require("onedark").setup(opts)
+      require("onedark").load()
+    end,
   },
   -- Keep other themes as alternatives
+  {
+    "folke/tokyonight.nvim",
+    opts = {
+      style = "night",
+      transparent = false,
+    },
+  },
   {
     "ellisonleao/gruvbox.nvim",
     opts = {
       contrast = "hard",
-      italic = {
-        strings = false,
-        emphasis = false,
-        comments = false,
-        operators = false,
-        folds = false,
-      },
     },
   },
 }
