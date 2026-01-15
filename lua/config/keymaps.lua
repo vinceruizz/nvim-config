@@ -50,9 +50,9 @@ MAP(
   { desc = "Titleize Text" }
 )
 
--- Diagnostics (since virtual text is disabled)
-MAP("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-MAP("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+-- Diagnostics (since virtual text is disabled) - uses filtered function to remove duplicates
+MAP("n", "<leader>cd", function() _G.show_filtered_diagnostics() end, { desc = "Line Diagnostics" })
+MAP("n", "gl", function() _G.show_filtered_diagnostics() end, { desc = "Line Diagnostics" })
 
 -- Terminal keymaps
 MAP("t", "<C-h>", "<Cmd>wincmd h<CR>", { desc = "Go to Left Window" })

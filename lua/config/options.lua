@@ -72,30 +72,40 @@ vim.diagnostic.config({
   -- Float window configuration (shown with <leader>cd or hover)
   float = {
     border = "rounded",
-    source = true, -- Show which LSP generated the diagnostic
+    source = true,
     header = "",
     prefix = "",
   },
 })
 
--- Filter duplicate diagnostics from multiple LSPs
-local function filter_diagnostics(diagnostics)
-  local dominated = {}
+-- Custom diagnostic float that filters duplicates
+local function show_filtered_diagnostics()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+  local diagnostics = vim.diagnostic.get(bufnr, { lnum = line })
 
+  if #diagnostics == 0 then
+    vim.notify("No diagnostics on this line", vim.log.levels.INFO)
+    return
+  end
+
+  -- Filter duplicates
+  local dominated = {}
   for i, d1 in ipairs(diagnostics) do
     if not dominated[i] then
       for j, d2 in ipairs(diagnostics) do
-        if i ~= j and not dominated[j] and d1.lnum == d2.lnum then
-          -- Normalize messages for comparison
+        if i ~= j and not dominated[j] then
           local m1 = d1.message:lower():gsub("[%p%s]", "")
           local m2 = d2.message:lower():gsub("[%p%s]", "")
-          -- If messages are similar, keep the one with higher severity (lower number)
-          if m1:find(m2, 1, true) or m2:find(m1, 1, true) or m1:sub(1, 30) == m2:sub(1, 30) then
-            if d1.severity <= d2.severity then
+          if m1:find(m2, 1, true) or m2:find(m1, 1, true) or m1:sub(1, 20) == m2:sub(1, 20) then
+            if d1.severity < d2.severity then
+              dominated[j] = true
+            elseif d1.severity > d2.severity then
+              dominated[i] = true
+            elseif #d1.message <= #d2.message then
               dominated[j] = true
             else
               dominated[i] = true
-              break
             end
           end
         end
@@ -103,20 +113,27 @@ local function filter_diagnostics(diagnostics)
     end
   end
 
-  local filtered = {}
+  -- Build message lines
+  local lines = {}
+  local severity_names = { "ERROR", "WARN", "INFO", "HINT" }
   for i, d in ipairs(diagnostics) do
     if not dominated[i] then
-      table.insert(filtered, d)
+      local source = d.source or "unknown"
+      local sev = severity_names[d.severity] or "?"
+      table.insert(lines, string.format("[%s] %s: %s", sev, source, d.message))
     end
   end
-  return filtered
+
+  if #lines == 0 then
+    lines = { diagnostics[1].message }
+  end
+
+  -- Show in floating window
+  vim.lsp.util.open_floating_preview(lines, "markdown", {
+    border = "rounded",
+    focus = false,
+  })
 end
 
--- Override the diagnostic handler to filter duplicates
-local orig_handler = vim.lsp.handlers["textDocument/publishDiagnostics"]
-vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-  if result and result.diagnostics then
-    result.diagnostics = filter_diagnostics(result.diagnostics)
-  end
-  orig_handler(err, result, ctx, config)
-end
+-- Export for keymaps
+_G.show_filtered_diagnostics = show_filtered_diagnostics
