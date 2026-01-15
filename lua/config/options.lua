@@ -50,8 +50,8 @@ opt.wrap = true
 -- Disable ColorColumn
 vim.opt.colorcolumn = ""
 
--- Set the vintage hacker colorscheme
-vim.cmd.colorscheme("bamboo")
+-- Set colorscheme (tokyonight with black background)
+vim.cmd.colorscheme("tokyonight")
 
 -- Diagnostic configuration - less intrusive inline messages
 vim.diagnostic.config({
