@@ -14,7 +14,8 @@
       "Bash(git clone:*)",
       "Bash(make:*)",
       "Bash(git pull:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(git tag:*)"
     ]
   }
 }
