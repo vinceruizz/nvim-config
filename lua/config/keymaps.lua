@@ -50,6 +50,10 @@ MAP(
   { desc = "Titleize Text" }
 )
 
+-- Diagnostics (since virtual text is disabled)
+MAP("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+MAP("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+
 -- Terminal keymaps
 MAP("t", "<C-h>", "<Cmd>wincmd h<CR>", { desc = "Go to Left Window" })
 MAP("t", "<C-j>", "<Cmd>wincmd j<CR>", { desc = "Go to Lower Window" })

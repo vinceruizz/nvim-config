@@ -49,3 +49,31 @@ opt.wrap = true
 
 -- Disable ColorColumn
 vim.opt.colorcolumn = ""
+
+-- Diagnostic configuration - less intrusive inline messages
+vim.diagnostic.config({
+  -- Disable inline virtual text (the annoying text at end of lines)
+  virtual_text = false,
+  -- Show signs in the gutter instead
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "●",
+      [vim.diagnostic.severity.WARN] = "●",
+      [vim.diagnostic.severity.HINT] = "●",
+      [vim.diagnostic.severity.INFO] = "●",
+    },
+  },
+  -- Underline problematic code
+  underline = true,
+  -- Update diagnostics in insert mode (set to false for less distraction)
+  update_in_insert = false,
+  -- Sort by severity
+  severity_sort = true,
+  -- Float window configuration (shown with <leader>cd or hover)
+  float = {
+    border = "rounded",
+    source = true, -- Show which LSP generated the diagnostic
+    header = "",
+    prefix = "",
+  },
+})
