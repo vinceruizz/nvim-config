@@ -60,6 +60,35 @@ return {
       end,
     },
   },
+  -- Doom-One (Space theme - transparent with background image)
+  {
+    "NTBBloodbath/doom-one.nvim",
+    priority = 1000,
+    lazy = false,
+    config = function()
+      vim.g.doom_one_cursor_coloring = true
+      vim.g.doom_one_terminal_colors = true
+      vim.g.doom_one_italic_comments = false
+      vim.g.doom_one_enable_treesitter = true
+      vim.g.doom_one_diagnostics_text_color = true
+      vim.g.doom_one_transparent_background = true
+
+      vim.g.doom_one_pumblend_enable = true
+      vim.g.doom_one_pumblend_transparency = 20
+
+      vim.g.doom_one_plugin_neorg = false
+      vim.g.doom_one_plugin_barbar = false
+      vim.g.doom_one_plugin_telescope = true
+      vim.g.doom_one_plugin_neogit = false
+      vim.g.doom_one_plugin_nvim_tree = true
+      vim.g.doom_one_plugin_dashboard = false
+      vim.g.doom_one_plugin_startify = false
+      vim.g.doom_one_plugin_whichkey = true
+      vim.g.doom_one_plugin_indent_blankline = true
+      vim.g.doom_one_plugin_vim_illuminate = true
+      vim.g.doom_one_plugin_lspsaga = false
+    end,
+  },
   -- Gruvbox alternative
   {
     "ellisonleao/gruvbox.nvim",
@@ -73,12 +102,15 @@ return {
     "folke/which-key.nvim",
     optional = true,
     opts = function(_, opts)
-      -- Theme toggle function
+      -- Theme toggle function (cycles through 3 themes)
       _G.toggle_theme = function()
         local current = vim.g.colors_name
         if current == "onedark" then
           vim.cmd.colorscheme("tokyonight")
           vim.notify("Switched to TokyoNight (LazyVim style)", vim.log.levels.INFO)
+        elseif current == "tokyonight" or current:match("^tokyonight") then
+          vim.cmd.colorscheme("doom-one")
+          vim.notify("Switched to Doom-One (Space theme)", vim.log.levels.INFO)
         else
           require("onedark").load()
           vim.notify("Switched to OneDark (Hacker style)", vim.log.levels.INFO)

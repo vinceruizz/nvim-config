@@ -50,7 +50,8 @@ opt.wrap = true
 -- Disable ColorColumn
 vim.opt.colorcolumn = ""
 
--- Colorscheme is set by onedark plugin in colorschemes.lua
+-- Colorscheme is set in lazyvim.lua (default: doom-one for Space theme)
+-- Toggle with <leader>ut: OneDark (Hacker) -> TokyoNight (LazyVim) -> Doom-One (Space)
 
 -- Diagnostic configuration - less intrusive inline messages
 vim.diagnostic.config({
