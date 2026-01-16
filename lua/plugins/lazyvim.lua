@@ -1,9 +1,9 @@
 return {
-  -- Override LazyVim colorscheme to doom-one (Space theme)
+  -- Override LazyVim colorscheme to onedark (Hacker theme with classic syntax)
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "doom-one",
+      colorscheme = "onedark",
     },
   },
 }

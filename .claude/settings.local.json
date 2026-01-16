@@ -15,7 +15,10 @@
       "Bash(make:*)",
       "Bash(git pull:*)",
       "Bash(git stash:*)",
-      "Bash(git tag:*)"
+      "Bash(git tag:*)",
+      "Bash(fc-list:*)",
+      "Bash(chmod:*)",
+      "Bash(ln:*)"
     ]
   }
 }
