@@ -108,12 +108,52 @@ return {
       vim.g.doom_one_plugin_lspsaga = false
     end,
   },
-  -- Gruvbox alternative
+  -- Gruvbox (Hacker theme - warm retro syntax with green UI)
   {
     "ellisonleao/gruvbox.nvim",
+    priority = 1000,
+    lazy = false,
     opts = {
       contrast = "hard",
+      transparent_mode = false,
+      overrides = {
+        Normal = { bg = "#000000" },
+        NormalFloat = { bg = "#0a0a0a" },
+        SignColumn = { bg = "#000000" },
+        CursorLine = { bg = "#0a0a0a" },
+        CursorLineNr = { fg = "#00ff00" },
+        LineNr = { fg = "#00aa00" },
+        VertSplit = { fg = "#00aa00" },
+        WinSeparator = { fg = "#00aa00" },
+        Pmenu = { bg = "#0a0a0a" },
+        PmenuSel = { bg = "#1a1a1a", fg = "#00ff00" },
+        FloatBorder = { bg = "#0a0a0a", fg = "#00aa00" },
+        StatusLine = { bg = "#0a0a0a", fg = "#00ff00" },
+        StatusLineNC = { bg = "#000000", fg = "#00aa00" },
+        -- Vintage hacker explorer style (bright green)
+        Directory = { fg = "#00ff00" },
+        SnacksExplorerDir = { fg = "#00ff00" },
+        SnacksExplorerFile = { fg = "#44ff44" },
+        SnacksExplorerPathHidden = { fg = "#00bb00" },
+        SnacksExplorerNormal = { bg = "#000000", fg = "#00ff00" },
+        SnacksPickerDir = { fg = "#00ff00" },
+        SnacksPickerFile = { fg = "#44ff44" },
+        SnacksPickerPathHidden = { fg = "#00bb00" },
+        SnacksDashboardHeader = { fg = "#00ff00" },
+        SnacksDashboardIcon = { fg = "#44ff44" },
+        SnacksDashboardKey = { fg = "#00ff00" },
+        SnacksDashboardDesc = { fg = "#44ff44" },
+        NeoTreeDirectoryIcon = { fg = "#00ff00" },
+        NeoTreeDirectoryName = { fg = "#00ff00" },
+        NeoTreeFileName = { fg = "#44ff44" },
+        NeoTreeGitModified = { fg = "#ffaa00" },
+        NeoTreeGitAdded = { fg = "#00ff00" },
+        NeoTreeRootName = { fg = "#00ff00", bold = true },
+      },
     },
+    config = function(_, opts)
+      require("gruvbox").setup(opts)
+    end,
   },
 
   -- Theme toggle functionality
@@ -124,15 +164,15 @@ return {
       -- Theme toggle function (cycles through 3 themes)
       _G.toggle_theme = function()
         local current = vim.g.colors_name
-        if current == "onedark" then
+        if current == "gruvbox" then
           vim.cmd.colorscheme("tokyonight")
           vim.notify("Switched to TokyoNight (LazyVim style)", vim.log.levels.INFO)
         elseif current == "tokyonight" or current:match("^tokyonight") then
           vim.cmd.colorscheme("doom-one")
           vim.notify("Switched to Doom-One (Space theme)", vim.log.levels.INFO)
         else
-          require("onedark").load()
-          vim.notify("Switched to OneDark (Hacker style)", vim.log.levels.INFO)
+          vim.cmd.colorscheme("gruvbox")
+          vim.notify("Switched to Gruvbox (Hacker style)", vim.log.levels.INFO)
         end
       end
     end,

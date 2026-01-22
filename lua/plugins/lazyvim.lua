@@ -1,9 +1,9 @@
 return {
-  -- Override LazyVim colorscheme to onedark (Hacker theme with classic syntax)
+  -- Override LazyVim colorscheme to gruvbox (Hacker theme with warm retro syntax)
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "onedark",
+      colorscheme = "gruvbox",
     },
   },
 }
