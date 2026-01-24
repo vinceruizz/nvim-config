@@ -120,7 +120,7 @@ return {
         Normal = { bg = "#000000" },
         NormalFloat = { bg = "#0a0a0a" },
         SignColumn = { bg = "#000000" },
-        CursorLine = { bg = "#0a0a0a" },
+        CursorLine = { bg = "#1a2a1a" },
         CursorLineNr = { fg = "#00ff00" },
         LineNr = { fg = "#00aa00" },
         VertSplit = { fg = "#00aa00" },
