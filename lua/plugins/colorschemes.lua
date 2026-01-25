@@ -108,7 +108,7 @@ return {
       vim.g.doom_one_plugin_lspsaga = false
     end,
   },
-  -- Gruvbox (alternative theme)
+  -- Gruvbox (Hacker theme - Gruvbox syntax with Nord UI)
   {
     "ellisonleao/gruvbox.nvim",
     priority = 1000,
@@ -116,6 +116,43 @@ return {
     opts = {
       contrast = "hard",
       transparent_mode = false,
+      bold = true,
+      overrides = {
+        -- Nord-styled backgrounds
+        Normal = { bg = "#1d2128" },
+        NormalFloat = { bg = "#2e3440" },
+        SignColumn = { bg = "#1d2128" },
+        CursorLine = { bg = "#3b4252" },
+        -- Frost cyan UI elements
+        CursorLineNr = { fg = "#88c0d0", bold = true },
+        LineNr = { fg = "#4c566a" },
+        VertSplit = { fg = "#8fbcbb" },
+        WinSeparator = { fg = "#8fbcbb" },
+        Pmenu = { bg = "#2e3440" },
+        PmenuSel = { bg = "#3b4252", fg = "#88c0d0" },
+        FloatBorder = { bg = "#2e3440", fg = "#8fbcbb" },
+        StatusLine = { bg = "#2e3440", fg = "#88c0d0" },
+        StatusLineNC = { bg = "#1d2128", fg = "#4c566a" },
+        -- Hacker explorer style with frost cyan
+        Directory = { fg = "#88c0d0" },
+        SnacksExplorerDir = { fg = "#88c0d0" },
+        SnacksExplorerFile = { fg = "#8fbcbb" },
+        SnacksExplorerPathHidden = { fg = "#4c566a" },
+        SnacksExplorerNormal = { bg = "#1d2128", fg = "#88c0d0" },
+        SnacksPickerDir = { fg = "#88c0d0" },
+        SnacksPickerFile = { fg = "#8fbcbb" },
+        SnacksPickerPathHidden = { fg = "#4c566a" },
+        SnacksDashboardHeader = { fg = "#88c0d0" },
+        SnacksDashboardIcon = { fg = "#8fbcbb" },
+        SnacksDashboardKey = { fg = "#88c0d0" },
+        SnacksDashboardDesc = { fg = "#8fbcbb" },
+        NeoTreeDirectoryIcon = { fg = "#88c0d0" },
+        NeoTreeDirectoryName = { fg = "#88c0d0" },
+        NeoTreeFileName = { fg = "#8fbcbb" },
+        NeoTreeGitModified = { fg = "#ebcb8b" },
+        NeoTreeGitAdded = { fg = "#a3be8c" },
+        NeoTreeRootName = { fg = "#88c0d0", bold = true },
+      },
     },
     config = function(_, opts)
       require("gruvbox").setup(opts)
@@ -187,15 +224,15 @@ return {
       -- Theme toggle function (cycles through 3 themes)
       _G.toggle_theme = function()
         local current = vim.g.colors_name
-        if current == "nord" then
+        if current == "gruvbox" then
           vim.cmd.colorscheme("tokyonight")
           vim.notify("Switched to TokyoNight (LazyVim style)", vim.log.levels.INFO)
         elseif current == "tokyonight" or current:match("^tokyonight") then
           vim.cmd.colorscheme("doom-one")
           vim.notify("Switched to Doom-One (Space theme)", vim.log.levels.INFO)
         else
-          vim.cmd.colorscheme("nord")
-          vim.notify("Switched to Nord (Hacker style)", vim.log.levels.INFO)
+          vim.cmd.colorscheme("gruvbox")
+          vim.notify("Switched to Gruvbox (Hacker style)", vim.log.levels.INFO)
         end
       end
     end,
