@@ -108,7 +108,7 @@ return {
       vim.g.doom_one_plugin_lspsaga = false
     end,
   },
-  -- Gruvbox (Hacker theme - warm retro syntax with green UI)
+  -- Gruvbox (alternative theme)
   {
     "ellisonleao/gruvbox.nvim",
     priority = 1000,
@@ -116,43 +116,66 @@ return {
     opts = {
       contrast = "hard",
       transparent_mode = false,
-      overrides = {
-        Normal = { bg = "#000000" },
-        NormalFloat = { bg = "#0a0a0a" },
-        SignColumn = { bg = "#000000" },
-        CursorLine = { bg = "#1a2a1a" },
-        CursorLineNr = { fg = "#00ff00" },
-        LineNr = { fg = "#00aa00" },
-        VertSplit = { fg = "#00aa00" },
-        WinSeparator = { fg = "#00aa00" },
-        Pmenu = { bg = "#0a0a0a" },
-        PmenuSel = { bg = "#1a1a1a", fg = "#00ff00" },
-        FloatBorder = { bg = "#0a0a0a", fg = "#00aa00" },
-        StatusLine = { bg = "#0a0a0a", fg = "#00ff00" },
-        StatusLineNC = { bg = "#000000", fg = "#00aa00" },
-        -- Vintage hacker explorer style (bright green)
-        Directory = { fg = "#00ff00" },
-        SnacksExplorerDir = { fg = "#00ff00" },
-        SnacksExplorerFile = { fg = "#44ff44" },
-        SnacksExplorerPathHidden = { fg = "#00bb00" },
-        SnacksExplorerNormal = { bg = "#000000", fg = "#00ff00" },
-        SnacksPickerDir = { fg = "#00ff00" },
-        SnacksPickerFile = { fg = "#44ff44" },
-        SnacksPickerPathHidden = { fg = "#00bb00" },
-        SnacksDashboardHeader = { fg = "#00ff00" },
-        SnacksDashboardIcon = { fg = "#44ff44" },
-        SnacksDashboardKey = { fg = "#00ff00" },
-        SnacksDashboardDesc = { fg = "#44ff44" },
-        NeoTreeDirectoryIcon = { fg = "#00ff00" },
-        NeoTreeDirectoryName = { fg = "#00ff00" },
-        NeoTreeFileName = { fg = "#44ff44" },
-        NeoTreeGitModified = { fg = "#ffaa00" },
-        NeoTreeGitAdded = { fg = "#00ff00" },
-        NeoTreeRootName = { fg = "#00ff00", bold = true },
-      },
     },
     config = function(_, opts)
       require("gruvbox").setup(opts)
+    end,
+  },
+  -- Nord (Hacker theme - matches Kitty Nord hacker theme)
+  {
+    "shaunsingh/nord.nvim",
+    priority = 1000,
+    lazy = false,
+    config = function()
+      vim.g.nord_contrast = true
+      vim.g.nord_borders = true
+      vim.g.nord_disable_background = false
+      vim.g.nord_italic = false
+      vim.g.nord_bold = false
+
+      require("nord").set()
+
+      -- Apply hacker UI overrides with Nord frost cyan
+      local frost_cyan = "#88c0d0"
+      local frost_teal = "#8fbcbb"
+      local polar_night = "#2e3440"
+      local polar_dark = "#1d2128"
+      local polar_mid = "#3b4252"
+      local snow = "#d8dee9"
+
+      vim.api.nvim_set_hl(0, "Normal", { bg = polar_dark })
+      vim.api.nvim_set_hl(0, "NormalFloat", { bg = polar_night })
+      vim.api.nvim_set_hl(0, "SignColumn", { bg = polar_dark })
+      vim.api.nvim_set_hl(0, "CursorLine", { bg = polar_mid })
+      vim.api.nvim_set_hl(0, "CursorLineNr", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "LineNr", { fg = "#4c566a" })
+      vim.api.nvim_set_hl(0, "VertSplit", { fg = frost_teal })
+      vim.api.nvim_set_hl(0, "WinSeparator", { fg = frost_teal })
+      vim.api.nvim_set_hl(0, "Pmenu", { bg = polar_night })
+      vim.api.nvim_set_hl(0, "PmenuSel", { bg = polar_mid, fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "FloatBorder", { bg = polar_night, fg = frost_teal })
+      vim.api.nvim_set_hl(0, "StatusLine", { bg = polar_night, fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "StatusLineNC", { bg = polar_dark, fg = "#4c566a" })
+
+      -- Hacker explorer style with frost cyan
+      vim.api.nvim_set_hl(0, "Directory", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "SnacksExplorerDir", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "SnacksExplorerFile", { fg = frost_teal })
+      vim.api.nvim_set_hl(0, "SnacksExplorerPathHidden", { fg = "#4c566a" })
+      vim.api.nvim_set_hl(0, "SnacksExplorerNormal", { bg = polar_dark, fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = frost_teal })
+      vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = "#4c566a" })
+      vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = frost_teal })
+      vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = frost_teal })
+      vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = frost_teal })
+      vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = "#ebcb8b" })
+      vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = "#a3be8c" })
+      vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = frost_cyan, bold = true })
     end,
   },
 
@@ -164,15 +187,15 @@ return {
       -- Theme toggle function (cycles through 3 themes)
       _G.toggle_theme = function()
         local current = vim.g.colors_name
-        if current == "gruvbox" then
+        if current == "nord" then
           vim.cmd.colorscheme("tokyonight")
           vim.notify("Switched to TokyoNight (LazyVim style)", vim.log.levels.INFO)
         elseif current == "tokyonight" or current:match("^tokyonight") then
           vim.cmd.colorscheme("doom-one")
           vim.notify("Switched to Doom-One (Space theme)", vim.log.levels.INFO)
         else
-          vim.cmd.colorscheme("gruvbox")
-          vim.notify("Switched to Gruvbox (Hacker style)", vim.log.levels.INFO)
+          vim.cmd.colorscheme("nord")
+          vim.notify("Switched to Nord (Hacker style)", vim.log.levels.INFO)
         end
       end
     end,

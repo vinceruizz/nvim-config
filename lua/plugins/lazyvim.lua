@@ -1,9 +1,9 @@
 return {
-  -- Override LazyVim colorscheme to gruvbox (Hacker theme with warm retro syntax)
+  -- Override LazyVim colorscheme to nord (Hacker theme matching Kitty)
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "nord",
     },
   },
 }
