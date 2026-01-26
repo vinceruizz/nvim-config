@@ -158,7 +158,7 @@ return {
       require("gruvbox").setup(opts)
     end,
   },
-  -- Nord (Hacker theme - matches Kitty Nord hacker theme)
+  -- Nord (matching Kitty Nord theme - blue, white, yellow, green)
   {
     "shaunsingh/nord.nvim",
     priority = 1000,
@@ -168,50 +168,91 @@ return {
       vim.g.nord_borders = true
       vim.g.nord_disable_background = false
       vim.g.nord_italic = false
-      vim.g.nord_bold = false
+      vim.g.nord_bold = true
 
       require("nord").set()
 
-      -- Apply hacker UI overrides with Nord frost cyan
-      local frost_cyan = "#88c0d0"
-      local frost_teal = "#8fbcbb"
+      -- Nord color palette
+      local frost_cyan = "#88c0d0"    -- primary blue
+      local frost_blue = "#81a1c1"    -- secondary blue
+      local frost_teal = "#8fbcbb"    -- teal accent
+      local aurora_green = "#a3be8c"  -- green
+      local aurora_yellow = "#ebcb8b" -- yellow
+      local aurora_red = "#bf616a"    -- red
+      local aurora_purple = "#b48ead" -- purple
+      local snow_white = "#d8dee9"    -- primary white
+      local snow_bright = "#eceff4"   -- bright white
       local polar_night = "#2e3440"
       local polar_dark = "#1d2128"
       local polar_mid = "#3b4252"
-      local snow = "#d8dee9"
+      local polar_light = "#4c566a"
 
-      vim.api.nvim_set_hl(0, "Normal", { bg = polar_dark })
+      -- UI backgrounds
+      vim.api.nvim_set_hl(0, "Normal", { bg = polar_dark, fg = snow_white })
       vim.api.nvim_set_hl(0, "NormalFloat", { bg = polar_night })
       vim.api.nvim_set_hl(0, "SignColumn", { bg = polar_dark })
       vim.api.nvim_set_hl(0, "CursorLine", { bg = polar_mid })
-      vim.api.nvim_set_hl(0, "CursorLineNr", { fg = frost_cyan })
-      vim.api.nvim_set_hl(0, "LineNr", { fg = "#4c566a" })
+      vim.api.nvim_set_hl(0, "CursorLineNr", { fg = aurora_yellow, bold = true })
+      vim.api.nvim_set_hl(0, "LineNr", { fg = polar_light })
       vim.api.nvim_set_hl(0, "VertSplit", { fg = frost_teal })
       vim.api.nvim_set_hl(0, "WinSeparator", { fg = frost_teal })
       vim.api.nvim_set_hl(0, "Pmenu", { bg = polar_night })
       vim.api.nvim_set_hl(0, "PmenuSel", { bg = polar_mid, fg = frost_cyan })
       vim.api.nvim_set_hl(0, "FloatBorder", { bg = polar_night, fg = frost_teal })
       vim.api.nvim_set_hl(0, "StatusLine", { bg = polar_night, fg = frost_cyan })
-      vim.api.nvim_set_hl(0, "StatusLineNC", { bg = polar_dark, fg = "#4c566a" })
+      vim.api.nvim_set_hl(0, "StatusLineNC", { bg = polar_dark, fg = polar_light })
 
-      -- Hacker explorer style with frost cyan
+      -- Syntax highlighting with blue, white, yellow, green emphasis
+      vim.api.nvim_set_hl(0, "Keyword", { fg = frost_blue, bold = true })
+      vim.api.nvim_set_hl(0, "Statement", { fg = frost_blue, bold = true })
+      vim.api.nvim_set_hl(0, "Conditional", { fg = frost_blue, bold = true })
+      vim.api.nvim_set_hl(0, "Repeat", { fg = frost_blue, bold = true })
+      vim.api.nvim_set_hl(0, "Function", { fg = frost_cyan, bold = true })
+      vim.api.nvim_set_hl(0, "String", { fg = aurora_green })
+      vim.api.nvim_set_hl(0, "Number", { fg = aurora_yellow })
+      vim.api.nvim_set_hl(0, "Boolean", { fg = aurora_yellow })
+      vim.api.nvim_set_hl(0, "Type", { fg = frost_teal })
+      vim.api.nvim_set_hl(0, "Identifier", { fg = snow_white })
+      vim.api.nvim_set_hl(0, "Comment", { fg = polar_light })
+      vim.api.nvim_set_hl(0, "Operator", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "Special", { fg = aurora_yellow })
+      vim.api.nvim_set_hl(0, "PreProc", { fg = aurora_green })
+      vim.api.nvim_set_hl(0, "Constant", { fg = aurora_yellow })
+
+      -- Treesitter highlights
+      vim.api.nvim_set_hl(0, "@keyword", { fg = frost_blue, bold = true })
+      vim.api.nvim_set_hl(0, "@function", { fg = frost_cyan, bold = true })
+      vim.api.nvim_set_hl(0, "@function.call", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "@method", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "@string", { fg = aurora_green })
+      vim.api.nvim_set_hl(0, "@number", { fg = aurora_yellow })
+      vim.api.nvim_set_hl(0, "@boolean", { fg = aurora_yellow })
+      vim.api.nvim_set_hl(0, "@type", { fg = frost_teal })
+      vim.api.nvim_set_hl(0, "@variable", { fg = snow_white })
+      vim.api.nvim_set_hl(0, "@property", { fg = snow_white })
+      vim.api.nvim_set_hl(0, "@parameter", { fg = snow_bright })
+      vim.api.nvim_set_hl(0, "@punctuation", { fg = snow_white })
+      vim.api.nvim_set_hl(0, "@operator", { fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "@comment", { fg = polar_light })
+
+      -- Explorer/picker with frost cyan
       vim.api.nvim_set_hl(0, "Directory", { fg = frost_cyan })
       vim.api.nvim_set_hl(0, "SnacksExplorerDir", { fg = frost_cyan })
-      vim.api.nvim_set_hl(0, "SnacksExplorerFile", { fg = frost_teal })
-      vim.api.nvim_set_hl(0, "SnacksExplorerPathHidden", { fg = "#4c566a" })
+      vim.api.nvim_set_hl(0, "SnacksExplorerFile", { fg = snow_white })
+      vim.api.nvim_set_hl(0, "SnacksExplorerPathHidden", { fg = polar_light })
       vim.api.nvim_set_hl(0, "SnacksExplorerNormal", { bg = polar_dark, fg = frost_cyan })
       vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = frost_cyan })
-      vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = frost_teal })
-      vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = "#4c566a" })
-      vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = frost_cyan })
-      vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = frost_teal })
-      vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = frost_cyan })
-      vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = frost_teal })
+      vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = snow_white })
+      vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = polar_light })
+      vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = frost_cyan, bold = true })
+      vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = aurora_green })
+      vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = aurora_yellow })
+      vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = snow_white })
       vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = frost_cyan })
       vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = frost_cyan })
-      vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = frost_teal })
-      vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = "#ebcb8b" })
-      vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = "#a3be8c" })
+      vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = snow_white })
+      vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = aurora_yellow })
+      vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = aurora_green })
       vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = frost_cyan, bold = true })
     end,
   },
@@ -221,10 +262,13 @@ return {
     "folke/which-key.nvim",
     optional = true,
     opts = function(_, opts)
-      -- Theme toggle function (cycles through 3 themes)
+      -- Theme toggle function (cycles through 4 themes)
       _G.toggle_theme = function()
         local current = vim.g.colors_name
         if current == "gruvbox" then
+          vim.cmd.colorscheme("nord")
+          vim.notify("Switched to Nord (Hacker Nord style)", vim.log.levels.INFO)
+        elseif current == "nord" then
           vim.cmd.colorscheme("tokyonight")
           vim.notify("Switched to TokyoNight (LazyVim style)", vim.log.levels.INFO)
         elseif current == "tokyonight" or current:match("^tokyonight") then
@@ -232,7 +276,7 @@ return {
           vim.notify("Switched to Doom-One (Space theme)", vim.log.levels.INFO)
         else
           vim.cmd.colorscheme("gruvbox")
-          vim.notify("Switched to Gruvbox (Hacker style)", vim.log.levels.INFO)
+          vim.notify("Switched to Gruvbox (Hacker Gruvbox style)", vim.log.levels.INFO)
         end
       end
     end,
