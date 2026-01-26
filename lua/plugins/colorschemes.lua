@@ -182,25 +182,25 @@ return {
       local aurora_purple = "#b48ead" -- purple
       local snow_white = "#d8dee9"    -- primary white
       local snow_bright = "#eceff4"   -- bright white
-      local polar_night = "#2e3440"
-      local polar_dark = "#1d2128"
-      local polar_mid = "#3b4252"
-      local polar_light = "#4c566a"
+      local polar_dark = "#1d2128"    -- darkest (matches Kitty)
+      local polar_darker = "#242933"  -- slightly lighter
+      local polar_mid = "#2e3440"     -- mid tone
+      local muted = "#616e88"         -- readable muted text
 
-      -- UI backgrounds
+      -- UI backgrounds (dark to match Kitty)
       vim.api.nvim_set_hl(0, "Normal", { bg = polar_dark, fg = snow_white })
-      vim.api.nvim_set_hl(0, "NormalFloat", { bg = polar_night })
+      vim.api.nvim_set_hl(0, "NormalFloat", { bg = polar_darker })
       vim.api.nvim_set_hl(0, "SignColumn", { bg = polar_dark })
-      vim.api.nvim_set_hl(0, "CursorLine", { bg = polar_mid })
+      vim.api.nvim_set_hl(0, "CursorLine", { bg = polar_darker })
       vim.api.nvim_set_hl(0, "CursorLineNr", { fg = aurora_yellow, bold = true })
-      vim.api.nvim_set_hl(0, "LineNr", { fg = polar_light })
-      vim.api.nvim_set_hl(0, "VertSplit", { fg = frost_teal })
-      vim.api.nvim_set_hl(0, "WinSeparator", { fg = frost_teal })
-      vim.api.nvim_set_hl(0, "Pmenu", { bg = polar_night })
+      vim.api.nvim_set_hl(0, "LineNr", { fg = muted })
+      vim.api.nvim_set_hl(0, "VertSplit", { fg = polar_mid })
+      vim.api.nvim_set_hl(0, "WinSeparator", { fg = polar_mid })
+      vim.api.nvim_set_hl(0, "Pmenu", { bg = polar_darker })
       vim.api.nvim_set_hl(0, "PmenuSel", { bg = polar_mid, fg = frost_cyan })
-      vim.api.nvim_set_hl(0, "FloatBorder", { bg = polar_night, fg = frost_teal })
-      vim.api.nvim_set_hl(0, "StatusLine", { bg = polar_night, fg = frost_cyan })
-      vim.api.nvim_set_hl(0, "StatusLineNC", { bg = polar_dark, fg = polar_light })
+      vim.api.nvim_set_hl(0, "FloatBorder", { bg = polar_darker, fg = polar_mid })
+      vim.api.nvim_set_hl(0, "StatusLine", { bg = polar_darker, fg = frost_cyan })
+      vim.api.nvim_set_hl(0, "StatusLineNC", { bg = polar_dark, fg = muted })
 
       -- Syntax highlighting with blue, white, yellow, green emphasis
       vim.api.nvim_set_hl(0, "Keyword", { fg = frost_blue, bold = true })
@@ -213,7 +213,7 @@ return {
       vim.api.nvim_set_hl(0, "Boolean", { fg = aurora_yellow })
       vim.api.nvim_set_hl(0, "Type", { fg = frost_teal })
       vim.api.nvim_set_hl(0, "Identifier", { fg = snow_white })
-      vim.api.nvim_set_hl(0, "Comment", { fg = polar_light })
+      vim.api.nvim_set_hl(0, "Comment", { fg = muted })
       vim.api.nvim_set_hl(0, "Operator", { fg = frost_cyan })
       vim.api.nvim_set_hl(0, "Special", { fg = aurora_yellow })
       vim.api.nvim_set_hl(0, "PreProc", { fg = aurora_green })
@@ -233,17 +233,17 @@ return {
       vim.api.nvim_set_hl(0, "@parameter", { fg = snow_bright })
       vim.api.nvim_set_hl(0, "@punctuation", { fg = snow_white })
       vim.api.nvim_set_hl(0, "@operator", { fg = frost_cyan })
-      vim.api.nvim_set_hl(0, "@comment", { fg = polar_light })
+      vim.api.nvim_set_hl(0, "@comment", { fg = muted })
 
       -- Explorer/picker with frost cyan
       vim.api.nvim_set_hl(0, "Directory", { fg = frost_cyan })
       vim.api.nvim_set_hl(0, "SnacksExplorerDir", { fg = frost_cyan })
       vim.api.nvim_set_hl(0, "SnacksExplorerFile", { fg = snow_white })
-      vim.api.nvim_set_hl(0, "SnacksExplorerPathHidden", { fg = polar_light })
+      vim.api.nvim_set_hl(0, "SnacksExplorerPathHidden", { fg = muted })
       vim.api.nvim_set_hl(0, "SnacksExplorerNormal", { bg = polar_dark, fg = frost_cyan })
       vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = frost_cyan })
       vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = snow_white })
-      vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = polar_light })
+      vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = muted })
       vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = frost_cyan, bold = true })
       vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = aurora_green })
       vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = aurora_yellow })
